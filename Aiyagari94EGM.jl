@@ -124,7 +124,7 @@ end
 
 function get_consEGM(policy::AbstractArray,
                Aggs::AggVarsEGM,
-               CurrentAssets::AbstractArray,
+               currentassets::AbstractArray,
                AiyagariModel::AiyagariModelEGM,
                cpolicy::AbstractArray) 
     
