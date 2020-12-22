@@ -7,7 +7,7 @@ using QuantEcon
 using Plots
 using Arpack
 using BenchmarkTools
-include("support.jl")
+#include("utils.jl")
 ################################### Model types #########################
 
 uPrime(c,γ) = c.^(-γ)
