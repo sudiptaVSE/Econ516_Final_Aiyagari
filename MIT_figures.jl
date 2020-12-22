@@ -2,32 +2,19 @@
  "cells": [
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": 14,
    "metadata": {},
    "outputs": [
     {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Iterate on aggregate assets"
-     ]
-    },
-    {
      "ename": "LoadError",
-     "evalue": "UndefVarError: currentassets not defined",
+     "evalue": "ArgumentError: Package Aiyagari94EGM not found in current path:\n- Run `import Pkg; Pkg.add(\"Aiyagari94EGM\")` to install the Aiyagari94EGM package.\n",
      "output_type": "error",
      "traceback": [
-      "UndefVarError: currentassets not defined",
+      "ArgumentError: Package Aiyagari94EGM not found in current path:\n- Run `import Pkg; Pkg.add(\"Aiyagari94EGM\")` to install the Aiyagari94EGM package.\n",
       "",
       "Stacktrace:",
-      " [1] get_consEGM(::Array{Float64,1}, ::AggVarsEGM{Float64,Float64}, ::Array{Float64,1}, ::AiyagariModelEGM{Float64,Int64}, ::Array{Float64,1}) at C:\\Users\\gsudi\\Dropbox\\2nd yr  ubc\\econ 516\\Econ516_Final_Aiyagari\\Aiyagari94EGM.jl:136",
-      " [2] EulerBackEGM at C:\\Users\\gsudi\\Dropbox\\2nd yr  ubc\\econ 516\\Econ516_Final_Aiyagari\\Aiyagari94EGM.jl:155 [inlined]",
-      " [3] SolveEGM(::Array{Float64,1}, ::AggVarsEGM{Float64,Float64}, ::AiyagariModelEGM{Float64,Int64}, ::Array{Float64,1}, ::Array{Float64,1}, ::Float64) at C:\\Users\\gsudi\\Dropbox\\2nd yr  ubc\\econ 516\\Econ516_Final_Aiyagari\\Aiyagari94EGM.jl:195",
-      " [4] SolveEGM(::Array{Float64,1}, ::AggVarsEGM{Float64,Float64}, ::AiyagariModelEGM{Float64,Int64}, ::Array{Float64,1}, ::Array{Float64,1}) at C:\\Users\\gsudi\\Dropbox\\2nd yr  ubc\\econ 516\\Econ516_Final_Aiyagari\\Aiyagari94EGM.jl:192",
-      " [5] equilibriumEGM(::Array{Float64,1}, ::AiyagariModelEGM{Float64,Int64}, ::Float64, ::Float64, ::Int64) at C:\\Users\\gsudi\\Dropbox\\2nd yr  ubc\\econ 516\\Econ516_Final_Aiyagari\\Aiyagari94EGM.jl:264",
-      " [6] equilibriumEGM(::Array{Float64,1}, ::AiyagariModelEGM{Float64,Int64}, ::Float64) at C:\\Users\\gsudi\\Dropbox\\2nd yr  ubc\\econ 516\\Econ516_Final_Aiyagari\\Aiyagari94EGM.jl:248",
-      " [7] top-level scope at In[9]:334",
-      " [8] include_string(::Function, ::Module, ::String, ::String) at .\\loading.jl:1091"
+      " [1] require(::Module, ::Symbol) at .\\loading.jl:893",
+      " [2] include_string(::Function, ::Module, ::String, ::String) at .\\loading.jl:1091"
      ]
     }
    ],
@@ -362,7 +349,8 @@
     "\n",
     "##############Solve aiyagari economy\n",
     "## store policies, stationary distribution, and aggregate capital\n",
-    "include(\"Aiyagari94EGM.jl\")\n",
+    "#include(\"./test.jl\")\n",
+    "using Aiyagari94EGM\n",
     "K0 = 47.0\n",
     "AA0,pol0,Aggs0 = AiyagariEGM(K0)\n",
     "pol_ss,_,dis_ss,K_ss,_ = equilibriumEGM(pol0,AA0,K0)\n",
@@ -393,6 +381,75 @@
     "p = plot(p1,p2, layout=(1,2),size=(1000,400))\n",
     "savefig(p,\"MITplots.pdf\")\n",
     "###\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "\u001b[32m\u001b[1m  Resolving\u001b[22m\u001b[39m package versions...\n",
+      "\u001b[32m\u001b[1mNo Changes\u001b[22m\u001b[39m to `C:\\Users\\gsudi\\Dropbox\\2nd yr  ubc\\econ 516\\Project.toml`\n",
+      "\u001b[32m\u001b[1mNo Changes\u001b[22m\u001b[39m to `C:\\Users\\gsudi\\Dropbox\\2nd yr  ubc\\econ 516\\Manifest.toml`\n",
+      "\u001b[32m\u001b[1m  Resolving\u001b[22m\u001b[39m package versions...\n",
+      "\u001b[32m\u001b[1mNo Changes\u001b[22m\u001b[39m to `C:\\Users\\gsudi\\Dropbox\\2nd yr  ubc\\econ 516\\Project.toml`\n",
+      "\u001b[32m\u001b[1mNo Changes\u001b[22m\u001b[39m to `C:\\Users\\gsudi\\Dropbox\\2nd yr  ubc\\econ 516\\Manifest.toml`\n",
+      "\u001b[32m\u001b[1m  Resolving\u001b[22m\u001b[39m package versions...\n",
+      "\u001b[32m\u001b[1mNo Changes\u001b[22m\u001b[39m to `C:\\Users\\gsudi\\Dropbox\\2nd yr  ubc\\econ 516\\Project.toml`\n",
+      "\u001b[32m\u001b[1mNo Changes\u001b[22m\u001b[39m to `C:\\Users\\gsudi\\Dropbox\\2nd yr  ubc\\econ 516\\Manifest.toml`\n",
+      "\u001b[32m\u001b[1m  Resolving\u001b[22m\u001b[39m package versions...\n",
+      "\u001b[32m\u001b[1mNo Changes\u001b[22m\u001b[39m to `C:\\Users\\gsudi\\Dropbox\\2nd yr  ubc\\econ 516\\Project.toml`\n",
+      "\u001b[32m\u001b[1mNo Changes\u001b[22m\u001b[39m to `C:\\Users\\gsudi\\Dropbox\\2nd yr  ubc\\econ 516\\Manifest.toml`\n",
+      "\u001b[32m\u001b[1m  Resolving\u001b[22m\u001b[39m package versions...\n",
+      "\u001b[32m\u001b[1mNo Changes\u001b[22m\u001b[39m to `C:\\Users\\gsudi\\Dropbox\\2nd yr  ubc\\econ 516\\Project.toml`\n",
+      "\u001b[32m\u001b[1mNo Changes\u001b[22m\u001b[39m to `C:\\Users\\gsudi\\Dropbox\\2nd yr  ubc\\econ 516\\Manifest.toml`\n",
+      "\u001b[32m\u001b[1m  Resolving\u001b[22m\u001b[39m package versions...\n",
+      "\u001b[32m\u001b[1mNo Changes\u001b[22m\u001b[39m to `C:\\Users\\gsudi\\Dropbox\\2nd yr  ubc\\econ 516\\Project.toml`\n",
+      "\u001b[32m\u001b[1mNo Changes\u001b[22m\u001b[39m to `C:\\Users\\gsudi\\Dropbox\\2nd yr  ubc\\econ 516\\Manifest.toml`\n",
+      "\u001b[32m\u001b[1m  Resolving\u001b[22m\u001b[39m package versions...\n",
+      "\u001b[32m\u001b[1mNo Changes\u001b[22m\u001b[39m to `C:\\Users\\gsudi\\Dropbox\\2nd yr  ubc\\econ 516\\Project.toml`\n",
+      "\u001b[32m\u001b[1mNo Changes\u001b[22m\u001b[39m to `C:\\Users\\gsudi\\Dropbox\\2nd yr  ubc\\econ 516\\Manifest.toml`\n"
+     ]
+    },
+    {
+     "ename": "LoadError",
+     "evalue": "The following package names could not be resolved:\n * Aiyagari94EGM (not found in project, manifest or registry)\n",
+     "output_type": "error",
+     "traceback": [
+      "The following package names could not be resolved:\n * Aiyagari94EGM (not found in project, manifest or registry)\n",
+      "",
+      "Stacktrace:",
+      " [1] pkgerror(::String) at C:\\buildbot\\worker\\package_win64\\build\\usr\\share\\julia\\stdlib\\v1.5\\Pkg\\src\\Types.jl:52",
+      " [2] ensure_resolved(::Pkg.Types.Context, ::Array{Pkg.Types.PackageSpec,1}; registry::Bool) at C:\\buildbot\\worker\\package_win64\\build\\usr\\share\\julia\\stdlib\\v1.5\\Pkg\\src\\Types.jl:837",
+      " [3] add(::Pkg.Types.Context, ::Array{Pkg.Types.PackageSpec,1}; preserve::Pkg.Types.PreserveLevel, platform::Pkg.BinaryPlatforms.Windows, kwargs::Base.Iterators.Pairs{Union{},Union{},Tuple{},NamedTuple{(),Tuple{}}}) at C:\\buildbot\\worker\\package_win64\\build\\usr\\share\\julia\\stdlib\\v1.5\\Pkg\\src\\API.jl:177",
+      " [4] add(::Pkg.Types.Context, ::Array{Pkg.Types.PackageSpec,1}) at C:\\buildbot\\worker\\package_win64\\build\\usr\\share\\julia\\stdlib\\v1.5\\Pkg\\src\\API.jl:139",
+      " [5] #add#21 at C:\\buildbot\\worker\\package_win64\\build\\usr\\share\\julia\\stdlib\\v1.5\\Pkg\\src\\API.jl:67 [inlined]",
+      " [6] add at C:\\buildbot\\worker\\package_win64\\build\\usr\\share\\julia\\stdlib\\v1.5\\Pkg\\src\\API.jl:67 [inlined]",
+      " [7] #add#20 at C:\\buildbot\\worker\\package_win64\\build\\usr\\share\\julia\\stdlib\\v1.5\\Pkg\\src\\API.jl:66 [inlined]",
+      " [8] add at C:\\buildbot\\worker\\package_win64\\build\\usr\\share\\julia\\stdlib\\v1.5\\Pkg\\src\\API.jl:66 [inlined]",
+      " [9] add(::String; kwargs::Base.Iterators.Pairs{Union{},Union{},Tuple{},NamedTuple{(),Tuple{}}}) at C:\\buildbot\\worker\\package_win64\\build\\usr\\share\\julia\\stdlib\\v1.5\\Pkg\\src\\API.jl:65",
+      " [10] add(::String) at C:\\buildbot\\worker\\package_win64\\build\\usr\\share\\julia\\stdlib\\v1.5\\Pkg\\src\\API.jl:65",
+      " [11] top-level scope at In[16]:11",
+      " [12] include_string(::Function, ::Module, ::String, ::String) at .\\loading.jl:1091"
+     ]
+    }
+   ],
+   "source": [
+    "import Pkg\n",
+    "using Pkg\n",
+    "push!(LOAD_PATH, pwd())\n",
+    "Pkg.add(\"Parameters\")\n",
+    "Pkg.add(\"IterativeSolvers\")\n",
+    "Pkg.add(\"FastGaussQuadrature\")\n",
+    "Pkg.add(\"ForwardDiff\")\n",
+    "Pkg.add(\"QuantEcon\")\n",
+    "Pkg.add(\"Arpack\")\n",
+    "Pkg.add(\"BenchmarkTools\")\n",
+    "Pkg.add(\"Aiyagari94EGM\")"
    ]
   },
   {
