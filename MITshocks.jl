@@ -133,7 +133,7 @@ policy: column vector of size ns*na - first na elements correspond to 1st idiosy
 Pr: type with Interest rate and wage associated with current aggregate states
 currentassets: 1 dimensional vector of size ns*na
 ######Outputs
-cpolicy: consumption series o- na*ns
+cpolicy: consumption series - na*ns
 """
     
     @unpack aGrid,na,ns,states = Mit_shock
@@ -156,8 +156,8 @@ function EulerBack(policy::AbstractArray,
                    apolicy::AbstractArray)
 
 """
-This function updates the policy based on current policy. It uses the Euler equation in a savings problem to get the implied assets holdings and consumption 
-from saving decisions given by the initial grid (aGridl) 
+This function updates the asset policy based on current policy  using the Euler equation in a savings problem  then get implied assets  and consumption 
+from saving decisions based on the initial grid (aGridl) 
 ######Inputs
 policy: 1 dimensional vector of size ns*na - first na elements correspond to 1st idiosyncratic state, 2nd na to 2nd idiosyncratic state and so on 
 Pr: Interest rate and wage associated with current aggregate states today
@@ -166,7 +166,7 @@ Mit_shock: holds model type with various objects
 cpolicy: vector to be filled with consumption on the grid
 apolicy: vector to be filled with policy on the grid
 ######Outputs
-apolicy: policy vector of size na*ns
+apolicy: asset policy vector of size na*ns
 cpolicy: consumption vector of size na*ns
 """
 
@@ -176,24 +176,23 @@ cpolicy: consumption vector of size na*ns
     R_P,w_P = Pr_P.R,Pr_P.w
     R,w = Pr.R,Pr.w
     
-    cp = get_cons(policy,Pr_P,aGridl,Mit_shock,cpolicy)
-    upcp = uPrime(cp,γ)
-    Eupcp = copy(cpolicy)
-    #Eupcp_sp = 0.0
-
+    cons = get_cons(policy,Pr_P,aGridl,Mit_shock,cpolicy)
+    upcons = uPrime(cp,γ)
+    Eupcons = copy(cpolicy)
+    
     for ai = 1:na
         for si = 1:ns
             asi = (si-1)*na + ai
-            Eupcp_sp = 0.0
+            Eupcons_sp = 0.0
             for spi = 1:ns
                 aspi = (spi-1)*na + ai
-                Eupcp_sp += Trans_mat[spi,si]*upcp[aspi]
+                Eupcons_sp += Trans_mat[spi,si]*upcons[aspi]
             end
-            Eupcp[asi] = Eupcp_sp 
+            Eupcons[asi] = Eupcons_sp 
         end
     end
 
-    upc = R_P*β*Eupcp
+    upc = R_P*β*Eupcons
 
     c = uPrimeInv(upc,γ)
 
@@ -217,7 +216,7 @@ function SolveIndProblem(policy::AbstractArray,
     for i = 1:10000
         a = EulerBack(policy,Pr,Pr,Mit_shock,cpolicy,apolicy)[1]
         if (i-1) % 50 == 0
-            heck = abs.(a - policy)/(abs.(a) + abs.(pol))
+            heck = abs.(a - policy)/(abs.(a) + abs.(policy))
             if maximum(check) < tol
                 println("converged in ",i," ","iterations")
                 break
